@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&display=swap');
+
+:root {
+  --accent: #e1034d;
+  --accent-hover: #ff0f5a;
+  --accent-glow: rgba(225, 3, 77, 0.25);
+  --accent-dim: rgba(225, 3, 77, 0.1);
+}
+
+.button {
+  position: relative;
+  border: none;
+  outline: none;
+  padding-inline: 1.75rem;
+  padding-block: 0.85rem;
+  border-radius: 0.85rem;
+  cursor: pointer;
+  overflow: hidden;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition:
+    transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.25s ease,
+    filter 0.25s ease;
+
+  // Shine sweep layer
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      110deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.18) 50%,
+      transparent 70%
+    );
+    transform: translateX(-100%);
+    transition: transform 0.55s ease;
+    pointer-events: none;
+  }
+
+  // Bottom edge glow
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 60%;
+    height: 2px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.6);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+
+    &::before {
+      transform: translateX(100%);
+    }
+
+    &::after {
+      transform: translateX(-50%) scaleX(1);
+      opacity: 1;
+    }
+  }
+
+  &:active {
+    transform: scale(0.96) translateY(0);
+    filter: brightness(0.95);
+  }
+
+  // — Primary —
+  &.primary-button {
+    background: linear-gradient(135deg, #e1034d 0%, #ff2060 100%);
+    color: #fff;
+    box-shadow:
+      0 4px 20px var(--accent-glow),
+      0 1px 0 rgba(255, 255, 255, 0.15) inset,
+      0 -1px 0 rgba(0, 0, 0, 0.2) inset;
+
+    &:hover {
+      box-shadow:
+        0 8px 32px rgba(225, 3, 77, 0.45),
+        0 1px 0 rgba(255, 255, 255, 0.15) inset;
+      filter: brightness(1.08);
+    }
+  }
+
+  // — Ghost —
+  &.ghost-button {
+    background: var(--accent-dim);
+    color: var(--accent);
+    border: 1px solid rgba(225, 3, 77, 0.3);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+    &:hover {
+      background: rgba(225, 3, 77, 0.15);
+      border-color: rgba(225, 3, 77, 0.6);
+      box-shadow:
+        0 4px 20px var(--accent-glow),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+  }
+
+  // — Outline —
+  &.outline-button {
+    background: transparent;
+    color: #f0eff6;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.28);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  // — Disabled state —
+  &:disabled {
+    opacity: 0.38;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+} 
